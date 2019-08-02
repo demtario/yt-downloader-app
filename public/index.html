@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>YouTube Downloader App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bar"></div>
+
+  <div class="view">
+    <h1>Paste YouTube link here</h1>
+    <div class="preview preview--hidden" id="preview">
+      <img id="preview-img" src="">
+      <div class="preview__meta">
+        <h2 id="preview-title">Title</h2>
+        <small id="preview-author"></small>
+      </div>
+    </div>
+    <small class="error" id="preview-error"></small>
+    <input type="text" id="download-link" placeholder="np. https://www.youtube.com/watch?v=95hQ5CxWy04">
+    <button class="btn" id="download-button">Download</button>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/shortcuts.js"></script>
+</body>
+</html>
