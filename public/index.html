@@ -1,29 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>YouTube Downloader App</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="bar"></div>
+  <head>
+    <meta charset="utf-8" />
+    <title>YouTube Downloader App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="title-bar">
+      <div id="mac-controls">
+        <div class="mac-button mac-button--close"></div>
+        <div class="mac-button mac-button--minimalize"></div>
+        <div class="mac-button mac-button--fullsize"></div>
+      </div>
 
-  <div class="view">
-    <h1>Paste YouTube link here</h1>
-    <div class="preview preview--hidden" id="preview">
-      <img id="preview-img" src="">
-      <div class="preview__meta">
-        <h2 id="preview-title">Title</h2>
-        <small id="preview-author"></small>
+      <div id="window-controls">
+        <div class="win-button" id="min-button">
+          <span>&#xE921;</span>
+        </div>
+        <div class="win-button" id="max-button">
+          <span>&#xE922;</span>
+        </div>
+        <div class="win-button" id="restore-button">
+          <span>&#xE923;</span>
+        </div>
+        <div class="win-button" id="close-button">
+          <span>&#xE8BB;</span>
+        </div>
       </div>
     </div>
-    <small class="error" id="preview-error"></small>
-    <input type="text" id="download-link" placeholder="np. https://www.youtube.com/watch?v=95hQ5CxWy04">
-    <button class="btn" id="download-button">Download</button>
-  </div>
 
-  <script src="js/core.js"></script>
-  <script src="js/index.js"></script>
-  <script src="js/shortcuts.js"></script>
-</body>
+    <div class="view">
+      <h1>Paste YouTube link here</h1>
+      <div class="preview preview--hidden" id="preview">
+        <img id="preview-img" src="" />
+        <div class="preview__meta">
+          <h3 id="preview-title">Title</h3>
+          <small id="preview-author"></small>
+        </div>
+      </div>
+      <small class="error" id="preview-error"></small>
+      <input type="text" id="download-link" placeholder="np. https://www.youtube.com/watch?v=95hQ5CxWy04" />
+      <br />
+      <select id="format">
+        <option value="mp4">MP4</option>
+        <option value="mp3">MP3</option>
+      </select>
+
+      <button class="btn" id="download-button">Download</button>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-bar__bar"></div>
+    </div>
+
+    <script src="js/core.js"></script>
+    <script src="js/system-buttons.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/shortcuts.js"></script>
+  </body>
 </html>

@@ -1,4 +1,5 @@
 const link = document.getElementById("download-link")
+
 link.addEventListener('input', async () => {
   const response = await core.request('fetch-data', link.value)
   console.log(response);
@@ -17,5 +18,12 @@ link.addEventListener('input', async () => {
 })
 
 document.getElementById("download-button").addEventListener('click', async () => {
-  await core.request('download', link.value)
+  const format = document.getElementById('format').value
+  await core.request('download', { link : link.value, format })
+})
+
+core.on('update-status', (progress) => {
+  console.log(progress);
+  
+  document.querySelector('.progress-bar__bar').style.width = `${progress}%`
 })

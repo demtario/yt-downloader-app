@@ -1,4 +1,5 @@
 import YTDL from 'ytdl-core'
+import path from 'path'
 import fs from 'fs'
 
 import app from './app.js'
@@ -23,23 +24,26 @@ app.on('fetch-data', async (link, respond) => {
   respond(info)
 })
 
-app.on('download', async (link, respond) => {
+app.on('download', async ({ link, format }, respond) => {
   if(!YTDL.validateURL(link)) {
     respond({error: 'Incorrect link!'})
     return
   }
 
-  const path = `${info.title}.mp4`
-
   const ID = YTDL.getURLVideoID(link)
   const info = await YTDL.getInfo(ID)
 
-  YTDL(link)
+  const desktopFolder = path.join(require('os').homedir(), 'Desktop')
+  const resultPath = `${desktopFolder}/${info.title}.${format}`
+
+  YTDL(link, { filter: format == 'mp3' ? 'audio' : 'video' })
     .on('progress', (chunk, downloaded, total) => {
       console.log(`Received ${downloaded} bytes of total ${total}`);
+
+      app.emit('update-status', downloaded/total*100)
     })
     .on('end', () => {
-      respond({complete: 'Download complete!', path})
+      respond({complete: 'Download complete!', resultPath})
     })
-    .pipe(fs.createWriteStream(path));
+    .pipe(fs.createWriteStream(resultPath));
 })

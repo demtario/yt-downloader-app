@@ -1,8 +1,7 @@
 const {
     app,
     BrowserWindow,
-    ipcMain,
-    dialog
+    ipcMain
 } = require('electron')
 
 class App {
@@ -16,10 +15,10 @@ class App {
         await this.ready
 
         this.window = new BrowserWindow({
-            width: 1200,
-            height: 800,
+            width: 500,
+            height: 700,
             frame: false,
-            // icon: 'public/img/icon.ico',
+            icon: 'public/img/icon.png',
             show: false
         })
 

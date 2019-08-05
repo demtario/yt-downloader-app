@@ -1,8 +1,8 @@
 {
   "name": "yt-downloader-app",
   "productName": "yt-downloader-app",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "version": "0.1.0",
+  "description": "Simple electron YT films download app",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -29,7 +29,7 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm"
+        "packageManager": "yarn"
       },
       "electronWinstallerConfig": {
         "name": "yt_downloader_app"
@@ -37,11 +37,11 @@
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "demtario",
+        "name": "yt-downloader-app"
       },
       "windowsStoreConfig": {
-        "packageName": "",
+        "packageName": "yt-downloader-app",
         "name": "ytdownloaderapp"
       }
     }
