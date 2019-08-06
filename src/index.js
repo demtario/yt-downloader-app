@@ -1,4 +1,5 @@
 import YTDL from 'ytdl-core'
+import filenamify from 'filenamify'
 import path from 'path'
 import fs from 'fs'
 
@@ -34,7 +35,7 @@ app.on('download', async ({ link, format }, respond) => {
   const info = await YTDL.getInfo(ID)
 
   const desktopFolder = path.join(require('os').homedir(), 'Desktop')
-  const resultPath = `${desktopFolder}/${info.title}.${format}`
+  const resultPath = `${desktopFolder}/${filenamify(info.title)}.${format}`
 
   app.emit('download-started', info)
   
