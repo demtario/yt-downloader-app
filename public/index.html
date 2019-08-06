@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>YouTube Downloader App</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
   </head>
   <body>
     <div class="title-bar">
@@ -29,24 +30,29 @@
       </div>
     </div>
 
-    <div class="view">
+    <div class="view view--active" id="view-1">
       <h1>Paste YouTube link here</h1>
-      <div class="preview preview--hidden" id="preview">
-        <img id="preview-img" src="" />
-        <div class="preview__meta">
-          <h3 id="preview-title">Title</h3>
-          <small id="preview-author"></small>
-        </div>
-      </div>
-      <small class="error" id="preview-error"></small>
-      <input type="text" id="download-link" placeholder="np. https://www.youtube.com/watch?v=95hQ5CxWy04" />
+      <input type="text" id="download-link" placeholder="e.g. https://www.youtube.com/watch?v=95hQ5CxWy04" />
       <br />
       <select id="format">
         <option value="mp4">MP4</option>
         <option value="mp3">MP3</option>
       </select>
 
+      <small class="error"></small>
+
       <button class="btn" id="download-button">Download</button>
+    </div>
+
+    <div class="view" id="view-2">
+      <div class="card card--done">
+        <img id="card-img" src="https://i.ytimg.com/an_webp/mrEUh8LSPJ4/mqdefault_6s.webp?du=3000&sqp=CK7ppuoF&rs=AOn4CLDe5M8lQlqQifGRCD83IbJFQBZZ0Q" class="card__img">
+        <div class="card__content" id="card-progress">85%</div>
+        <div class="card__overlay">
+          <i class="fas fa-check"></i>
+          <h2>Downloading in progress</h2>
+        </div>
+      </div>
     </div>
 
     <div class="progress-bar">
@@ -54,6 +60,7 @@
     </div>
 
     <script src="js/core.js"></script>
+    <script src="js/views.js"></script>
     <script src="js/system-buttons.js"></script>
     <script src="js/index.js"></script>
     <script src="js/shortcuts.js"></script>

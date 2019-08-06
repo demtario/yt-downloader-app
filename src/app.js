@@ -18,7 +18,7 @@ class App {
             width: 500,
             height: 700,
             frame: false,
-            icon: 'public/img/icon.png',
+            icon: './assets/icon.png',
             show: false
         })
 
@@ -86,6 +86,10 @@ class App {
 
             this.ids[event] = id + 1
         })
+    }
+
+    quit() {
+        app.quit()
     }
 }
 

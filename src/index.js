@@ -5,7 +5,7 @@ import fs from 'fs'
 import app from './app.js'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
@@ -26,7 +26,7 @@ app.on('fetch-data', async (link, respond) => {
 
 app.on('download', async ({ link, format }, respond) => {
   if(!YTDL.validateURL(link)) {
-    respond({error: 'Incorrect link!'})
+    app.emit('download-error', {msg: 'Incorrect link!'})
     return
   }
 
@@ -36,13 +36,15 @@ app.on('download', async ({ link, format }, respond) => {
   const desktopFolder = path.join(require('os').homedir(), 'Desktop')
   const resultPath = `${desktopFolder}/${info.title}.${format}`
 
+  app.emit('download-started', info)
+  
   YTDL(link, { filter: format == 'mp3' ? 'audio' : 'video' })
-    .on('progress', (chunk, downloaded, total) => {
-      console.log(`Received ${downloaded} bytes of total ${total}`);
-
-      app.emit('update-status', downloaded/total*100)
-    })
-    .on('end', () => {
+  .on('progress', (chunk, downloaded, total) => {
+    console.log(`Received ${downloaded} bytes of total ${total}`);
+    
+    app.emit('update-status', downloaded/total*100)
+  })
+  .on('end', () => {
       respond({complete: 'Download complete!', resultPath})
     })
     .pipe(fs.createWriteStream(resultPath));

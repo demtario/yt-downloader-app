@@ -15,36 +15,7 @@
   "author": "Artur Mędrygał",
   "license": "MIT",
   "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "yarn"
-      },
-      "electronWinstallerConfig": {
-        "name": "yt_downloader_app"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "demtario",
-        "name": "yt-downloader-app"
-      },
-      "windowsStoreConfig": {
-        "packageName": "yt-downloader-app",
-        "name": "ytdownloaderapp"
-      }
-    }
+    "forge": "./forge.config.js"
   },
   "dependencies": {
     "electron-compile": "^6.4.4",
