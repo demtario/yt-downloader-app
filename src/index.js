@@ -1,4 +1,5 @@
 import YTDL from 'ytdl-core'
+import ytlist from 'youtube-playlist'
 import filenamify from 'filenamify'
 import path from 'path'
 import fs from 'fs'
@@ -13,40 +14,44 @@ if (require('electron-squirrel-startup')) {
 // Start app
 app.start()
 
-app.on('fetch-data', async (link, respond) => {
-  if(!YTDL.validateURL(link)) {
-    respond({error: 'Incorrect link!'})
-    return
-  }
-
-  const ID = YTDL.getURLVideoID(link)
-  const info = await YTDL.getInfo(ID)
-
-  respond(info)
-})
-
 app.on('download', async ({ link, format }, respond) => {
-  if(!YTDL.validateURL(link)) {
+  const linkArray = []
+
+  try {
+    if(YTDL.validateURL(link))
+      linkArray.push(link)
+    else {
+      const playlist = await ytlist(link, 'url')
+      linkArray.push(...playlist.data.playlist)
+    }
+  } catch(e) {
+    console.error(e)
     app.emit('download-error', {msg: 'Incorrect link!'})
-    return
   }
-
-  const ID = YTDL.getURLVideoID(link)
-  const info = await YTDL.getInfo(ID)
-
-  const desktopFolder = path.join(require('os').homedir(), 'Desktop')
-  const resultPath = `${desktopFolder}/${filenamify(info.title)}.${format}`
-
-  app.emit('download-started', info)
   
-  YTDL(link, { filter: format == 'mp3' ? 'audio' : 'video' })
-  .on('progress', (chunk, downloaded, total) => {
-    console.log(`Received ${downloaded} bytes of total ${total}`);
+  for (const link of linkArray) {
     
-    app.emit('update-status', downloaded/total*100)
-  })
-  .on('end', () => {
-      respond({complete: 'Download complete!', resultPath})
+    const ID = YTDL.getURLVideoID(link)
+    const info = await YTDL.getInfo(ID)
+
+    const desktopFolder = path.join(require('os').homedir(), 'Desktop')
+    const resultPath = `${desktopFolder}/${filenamify(info.title)}.${format}`
+
+    app.emit('download-started', info)
+
+    await new Promise((resolve) => {
+      YTDL(link, { filter: format == 'mp3' ? 'audio' : 'video' })
+      .on('progress', (chunk, downloaded, total) => {
+        console.log(`Received ${downloaded} bytes of total ${total}`);
+
+        app.emit('update-status', downloaded/total*100)
+      })
+      .on('end', () => {
+          resolve(true)
+        })
+        .pipe(fs.createWriteStream(resultPath));
     })
-    .pipe(fs.createWriteStream(resultPath));
+    
+  }
+  respond({complete: 'Download complete!'})
 })

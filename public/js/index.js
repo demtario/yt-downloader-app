@@ -26,7 +26,7 @@ core.on('download-started', (info) => {
   document.querySelector('.card').classList = 'card'
   document.getElementById('card-img').src = `https://img.youtube.com/vi/${info.video_id}/maxresdefault.jpg`
   document.querySelector('.card__overlay').innerHTML = `
-    <i class="fas fa-hourglass-half"></i>
+    <i class="fas fa-hourglass-half card__hourglass"></i>
     <h2>Downloading in progress</h2>
   `
   views.goTo(1)

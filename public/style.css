@@ -236,6 +236,10 @@ select {
   transition: 0.3s;
 }
 
+.card__hourglass {
+  animation: hourglass 2s infinite;
+}
+
 .card__overlay i {
   font-size: 4em;
 }
@@ -259,4 +263,13 @@ select {
 
 .card--done .card__overlay {
   background-color: var(--greenAlpha);
+}
+
+@keyframes hourglass {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
 }

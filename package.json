@@ -21,6 +21,7 @@
     "electron-compile": "^6.4.4",
     "electron-squirrel-startup": "^1.0.0",
     "filenamify": "^4.1.0",
+    "youtube-playlist": "^1.0.2",
     "ytdl-core": "^0.29.5"
   },
   "devDependencies": {
